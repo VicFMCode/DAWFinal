@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="bookStoreApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Bookstore</title>
+    
+    <!-- Link to the CSS file served by the backend -->
+    <link rel="stylesheet" href="http://localhost:3000/css/styles.css"> <!-- Adjust the path as needed -->
+    
+    <!-- AngularJS Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="BookController">
+
+    <!-- Navbar -->
+    <div class="navbar2">
+        <h2 class="titulo">Tienda de Libros Don Bosco</h2>
+        <div class="cart-button">
+            <button ng-click="viewCart()">Carrito ({{cart.length}}) - ${{cartTotal}}</button>
+        </div>
+    </div>
+
+    <div class="cart-modal" ng-show="cart.length > 0">
+        <h2>Shopping Cart</h2>
+        <div ng-repeat="item in cart">
+            <h3>{{item.Title}}</h3>
+            <p>Price: ${{item.Price}} x {{item.quantity}} = ${{item.Price * item.quantity}}</p>
+        </div>
+        <hr>
+        <p><strong>Total: ${{cartTotal}}</strong></p>
+        <button ng-click="checkout()">Checkout</button>
+        <button ng-click="closeCart()">Close</button>
+    </div>
+
+    <!-- Image Slider -->
+    <div class="container">
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="http://localhost:3000/IMG/Imagen1terror.jpg" alt="Image 1">
+                </div>
+                <div class="slide">
+                    <img src="http://localhost:3000/IMG/imagen4.jpg" alt="Image 2">
+                </div>
+                <div class="slide">
+                    <img src="http://localhost:3000/IMG/imagen4ficcion.jpg" alt="Image 3">
+                </div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    </div>
+
+    <!-- Category and Search -->
+    <div class="navbar" ng-controller="BookController">
+        <!-- Category Dropdown -->
+        <div class="dropdown">
+            <select ng-model="selectedCategory" ng-change="fetchBooks()" id="category-dropdown">
+                <option value="">Seleccione una opción</option>
+                <option value="Terror">Terror</option>
+                <option value="Ficcion">Ficcion</option>
+                <option value="Novela">Novela</option>
+            </select>            
+        </div>
+    
+        <!-- Search Bar -->
+        <input type="text" class="search-bar" placeholder="Buscar libros por nombre" ng-model="searchQuery" ng-change="fetchBooks()" aria-label="Buscar libros por nombre">
+    </div>
+    
+
+    <div class="container" ng-controller="BookController">
+        <!-- Display books dynamically -->
+        <div class="product" ng-repeat="book in books | filter: searchQuery | filter: filterBooks">
+          <img ng-src="{{book.Imagelocation}}" alt="{{book.Title}}">
+          <h3>{{book.Title}}</h3> <!-- Display title -->
+          <p>{{book.Category}}</p> <!-- Display category -->
+          <p>$ {{book.Price}}</p> <!-- Display price -->
+          <button>Agregar al Carro</button>
+        </div>
+      </div>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to contact us:</p>
+        <p>Email: <a href="mailto:info@eventbookings.com">info@eventbookings.com</a></p>
+        <p>Phone: 123-456-7890</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Tienda de Libros Don Bosco | All Rights Reserved</p>
+    </footer>
+
+    <!-- Link to the JS files served by the backend (if needed) -->
+    <script src="http://localhost:3000/js/slider.js"></script> <!-- Example: Slider functionality -->
+    <script src="http://localhost:3000/JS/script.js"></script> <!-- Example: General frontend JS -->
+    <script src="http://localhost:3000/js/angular.min.js"></script>
+    <script src="http://localhost:3000/JS/bookcontroler.js"></script> <!-- AngularJS library -->
+    
+    
+    <!-- Your own AngularJS logic -->
+    <script src="http://localhost:3000/js/producos.js"></script> <!-- Example: Book API integration -->
+    <script src="http://localhost:3000/js/switchindex.js"></script> <!-- Example: Switch logic for index page -->
+
+</body>
+</html>
